@@ -1,4 +1,3 @@
-
 create table peoplemove(
 	MID varchar(10) PRIMARY KEY,
 	NewAddress varchar(50),
@@ -34,7 +33,6 @@ create table base (
 Create  Table Person(
 	PID varchar(13) not null PRIMARY KEY,
 	[Name] varchar(50) not null , 
-	[No] int not null ,
 	Hcode varchar(11) not null FOREIGN KEY (Hcode) REFERENCES Housereg(Hcode),
 	Nationality varchar(5) not null,
 	Gender CHAR(1) CHECK (gender in('M','F')),
@@ -61,3 +59,17 @@ drop table peoplemove;
 drop table subsistence;
 drop table Housereg;
 
+SELECT 
+    p.PID,
+    p.Name,
+    p.Nationality,
+    p.Gender,
+    p.Birthdate,
+    Address,
+    p1.Name AS Father_Name, 
+    p2.Name AS Mother_Name 
+FROM 
+    Person p 
+    LEFT JOIN Person p1 ON p.Father = p1.PID 
+    LEFT JOIN Person p2 ON p.Mather = p2.PID
+    INNER JOIN Housereg ON p.Hcode = Housereg.Hcode;
